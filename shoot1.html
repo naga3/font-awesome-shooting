@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+      }
+      #app {
+        width: 800px;
+        height: 400px;
+        background: black;
+        position: relative;
+        overflow: hidden;
+        left: 0;
+        top: 0;
+        cursor: none;
+      }
+      #player {
+        position: absolute;
+        color: lightskyblue;
+      }
+      #bullet {
+        position: absolute;
+        color: gold;
+        left: 800px;
+      }
+      #enemy {
+        position: absolute;
+        color: coral;
+        left: -100px;
+      }
+    </style>
+    <title>Font Awesome shooting game!</title>
+  </head>
+  <body>
+    <div id="app">
+        <i id="bullet" class="fas fa-toggle-on"></i>
+        <i id="player" class="fas fa-fighter-jet fa-3x"></i>
+        <i id="enemy" class="fas fa-helicopter fa-flip-horizontal fa-3x"></i>
+    </div>
+    <script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+      let showBullet = false
+      setInterval(() => {
+        $('#enemy').css('left', $('#enemy').offset().left - 4)
+        if ($('#enemy').offset().left < -100) {
+          $('#enemy').offset({
+            left: 800,
+            top: Math.random() * (400 - $('#enemy').height())
+          })
+        }
+        if (showBullet) {
+          $('#bullet').css('left', $('#bullet').offset().left + 8)
+          if ($('#bullet').offset().left > 800) showBullet = false
+          if (
+            $('#bullet').offset().left + $('#bullet').width() >= $('#enemy').offset().left &&
+            $('#bullet').offset().left < $('#enemy').offset().left + $('#enemy').width() &&
+            $('#bullet').offset().top + $('#bullet').height() >= $('#enemy').offset().top &&
+            $('#bullet').offset().top < $('#enemy').offset().top + $('#enemy').height()
+          ) {
+            showBullet = false
+            $('#bullet').css('left', 800)
+            $('#enemy').css('left', -100)
+          }
+        }
+      }, 10)
+      $('#app').mousemove(e => {
+        $('#player').offset({
+          left: e.clientX - $('#player').width() / 2,
+          top: e.clientY - $('#player').height() / 2
+        })
+      })
+      $('#app').click(e => {
+        if (showBullet) return
+        showBullet = true
+        $('#bullet').offset({
+          left: e.clientX - $('#bullet').width() / 2,
+          top: e.clientY - $('#bullet').height() / 2
+        })
+      })
+    </script>
+  </body>
+</html>
