@@ -44,7 +44,7 @@
     <script>
       let showBullet = false
       setInterval(() => {
-        $('#enemy').css('left', $('#enemy').offset().left - 4)
+        $('#enemy').css('left', $('#enemy').offset().left - 6)
         if ($('#enemy').offset().left < -100) {
           $('#enemy').offset({
             left: 800,
@@ -52,7 +52,7 @@
           })
         }
         if (showBullet) {
-          $('#bullet').css('left', $('#bullet').offset().left + 8)
+          $('#bullet').css('left', $('#bullet').offset().left + 12)
           if ($('#bullet').offset().left > 800) showBullet = false
           if (
             $('#bullet').offset().left + $('#bullet').width() >= $('#enemy').offset().left &&
@@ -65,7 +65,7 @@
             $('#enemy').css('left', -100)
           }
         }
-      }, 10)
+      }, 16)
       $('#app').mousemove(e => {
         $('#player').offset({
           left: e.clientX - $('#player').width() / 2,
