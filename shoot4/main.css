@@ -1,0 +1,14 @@
+body {
+  margin: 0;
+  padding: 0;
+}
+#app {
+  width: 800px;
+  height: 400px;
+  background: black;
+  position: relative;
+  overflow: hidden;
+  left: 0;
+  top: 0;
+  cursor: none;
+}
