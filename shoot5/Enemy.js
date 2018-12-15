@@ -57,8 +57,8 @@ class EnemyCollection {
     // ある程度のインターバルをおいて発生する。
     this.interval += Math.log(level) * 5
     if (this.interval > 2000) {
-      for (let i = 0; i < this.MAX_ITEMS; i++) {
-        if (this.items[i].born()) break
+      for (let item of this.items) {
+        if (item.born()) break
       }
       this.interval = 0
     }
@@ -66,25 +66,25 @@ class EnemyCollection {
 
   // 消去
   hide() {
-    for (let i = 0; i < this.MAX_ITEMS; i++) {
-      this.items[i].hide()
+    for (let item of this.items) {
+      item.hide()
     }
   }
 
   // 移動
   move(px, py) {
-    for (let i = 0; i < this.MAX_ITEMS; i++) {
-      this.items[i].move(px, py)
+    for (let item of this.items) {
+      item.move(px, py)
     }
   }
 
   // 弾との当たり判定
   hit_bullets(bullets) {
     let add_score = 0
-    for (let i = 0; i < this.MAX_ITEMS; i++) {
-      if (this.items[i].is_show) {
-        if (bullets.hit_enemy(this.items[i])) {
-          this.items[i].hide()
+    for (let item of this.items) {
+      if (item.is_show) {
+        if (bullets.hit_enemy(item)) {
+          item.hide()
           add_score += 10
         }
       }
@@ -94,9 +94,9 @@ class EnemyCollection {
 
   // 自機との当たり判定
   hit_player(player) {
-    for (let i = 0; i < this.MAX_ITEMS; i++) {
-      if (this.items[i].is_show) {
-        if (player.hit_enemy(this.items[i])) {
+    for (let item of this.items) {
+      if (item.is_show) {
+        if (player.hit_enemy(item)) {
           return true
         }
       }

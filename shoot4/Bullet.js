@@ -42,8 +42,8 @@ class BulletCollection {
     // 連射しすぎないようにある程度のインターバルをおく。
     this.interval++
     if (this.interval > 5) {
-      for (let i = 0; i < this.MAX_ITEMS; i++) {
-        if (this.items[i].born(x, y)) break
+      for (let item of this.items) {
+        if (item.born(x, y)) break
       }
       this.interval = 0
     }
@@ -51,16 +51,16 @@ class BulletCollection {
 
   // 移動
   move() {
-    for (let i = 0; i < this.MAX_ITEMS; i++) {
-      this.items[i].move()
+    for (let item of this.items) {
+      item.move()
     }
   }
 
   // 敵との当たり判定
   hit_enemy(enemy) {
-    for (let i = 0; i < this.MAX_ITEMS; i++) {
-      if (this.items[i].is_show && this.items[i].hit(enemy)) {
-        this.items[i].hide()
+    for (let item of this.items) {
+      if (item.is_show && item.hit(enemy)) {
+        item.hide()
         return true
       }
     }

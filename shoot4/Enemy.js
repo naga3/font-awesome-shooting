@@ -57,8 +57,8 @@ class EnemyCollection {
     // ある程度のインターバルをおいて発生する。
     this.interval++
     if (this.interval > 24) {
-      for (let i = 0; i < this.MAX_ITEMS; i++) {
-        if (this.items[i].born()) break
+      for (let item of this.items) {
+        if (item.born()) break
       }
       this.interval = 0
     }
@@ -66,17 +66,17 @@ class EnemyCollection {
 
   // 移動
   move(px, py) {
-    for (let i = 0; i < this.MAX_ITEMS; i++) {
-      this.items[i].move(px, py)
+    for (let item of this.items) {
+      item.move(px, py)
     }
   }
 
   // 弾との当たり判定
   hit_bullets(bullets) {
-    for (let i = 0; i < this.MAX_ITEMS; i++) {
-      if (this.items[i].is_show) {
-        if (bullets.hit_enemy(this.items[i])) {
-          this.items[i].hide()
+    for (let item of this.items) {
+      if (item.is_show) {
+        if (bullets.hit_enemy(item)) {
+          item.hide()
         }
       }
     }
