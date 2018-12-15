@@ -1,0 +1,39 @@
+body {
+  font-family: 'Fredoka One', cursive;
+  margin: 0;
+  padding: 0;
+}
+#app {
+  width: 800px;
+  height: 400px;
+  background: #ab2323;
+  position: relative;
+  overflow: hidden;
+  left: 0;
+  top: 0;
+}
+#title, #over {
+  color: white;
+  text-shadow: 3px 3px 3px #3469a5;
+  display: none;
+}
+#title-text, #over-text {
+  font-size: 80px;
+  margin: 45px 0 0 40px;
+  letter-spacing: 2px;
+}
+#start-button, #retry-button {
+  position: absolute;
+  right: 45px;
+  bottom: 45px;
+  font-size: 100px;
+  cursor: pointer;
+}
+#start-button:hover, #retry-button:hover {
+  color: #fff5b7;
+}
+#score-text {
+  font-size: 50px;
+  margin: 30px 0 0 40px;
+  letter-spacing: 2px;
+}
