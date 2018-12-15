@@ -1,7 +1,7 @@
 // 弾クラス
 class Bullet extends Character {
   constructor() {
-    super('fa-list fa-2x', 'gray')
+    super('fa-snowflake fa-2x fa-spin', 'white')
   }
 
   // 発生
@@ -16,7 +16,7 @@ class Bullet extends Character {
   // 移動
   move() {
     if (this.is_show) {
-      this.x += 16
+      this.x += 10
       if (this.x > 800 + this.width / 2) this.hide()
     }
   }
@@ -41,8 +41,8 @@ class BulletCollection {
     // 連射しすぎないようにある程度のインターバルをおく。
     this.interval++
     if (this.interval > 5) {
-      for (let i = 0; i < this.MAX_ITEMS; i++) {
-        if (this.items[i].born(x, y)) break
+      for (let item of this.items) {
+        if (item.born(x, y)) break
       }
       this.interval = 0
     }
@@ -50,24 +50,24 @@ class BulletCollection {
 
   // 消去
   hide() {
-    for (let i = 0; i < this.MAX_ITEMS; i++) {
-      this.items[i].hide()
+    for (let item of this.items) {
+      item.hide()
     }
   }
 
 
   // 移動
   move() {
-    for (let i = 0; i < this.MAX_ITEMS; i++) {
-      this.items[i].move()
+    for (let item of this.items) {
+      item.move()
     }
   }
 
   // 敵との当たり判定
   hit_enemy(enemy) {
-    for (let i = 0; i < this.MAX_ITEMS; i++) {
-      if (this.items[i].is_show && this.items[i].hit(enemy)) {
-        this.items[i].hide()
+    for (let item of this.items) {
+      if (item.is_show && item.hit(enemy)) {
+        item.hide()
         return true
       }
     }

@@ -1,7 +1,7 @@
 // 敵クラス
 class Enemy extends Character {
   constructor() {
-    super('fa-helicopter fa-flip-horizontal fa-3x', 'coral')
+    super('fa-skull fa-flip-horizontal fa-3x', 'white', 80)
     this.hide()
   }
 
@@ -16,6 +16,8 @@ class Enemy extends Character {
     if (this.is_show) return false
     this.x = 800 + this.width / 2
     this.y = Math.random() * 400
+    this.damage = 0
+    this.$.style.color = '#dddddd'
     this.show()
     return true
   }
@@ -56,9 +58,9 @@ class EnemyCollection {
   born(level) {
     // ある程度のインターバルをおいて発生する。
     this.interval += Math.log(level) * 5
-    if (this.interval > 2000) {
-      for (let i = 0; i < this.MAX_ITEMS; i++) {
-        if (this.items[i].born()) break
+    if (this.interval > 1000) {
+      for (let item of this.items) {
+        if (item.born()) break
       }
       this.interval = 0
     }
@@ -66,26 +68,30 @@ class EnemyCollection {
 
   // 消去
   hide() {
-    for (let i = 0; i < this.MAX_ITEMS; i++) {
-      this.items[i].hide()
+    for (let item of this.items) {
+      item.hide()
     }
   }
 
   // 移動
   move(px, py) {
-    for (let i = 0; i < this.MAX_ITEMS; i++) {
-      this.items[i].move(px, py)
+    for (let item of this.items) {
+      item.move(px, py)
     }
   }
 
   // 弾との当たり判定
   hit_bullets(bullets) {
     let add_score = 0
-    for (let i = 0; i < this.MAX_ITEMS; i++) {
-      if (this.items[i].is_show) {
-        if (bullets.hit_enemy(this.items[i])) {
-          this.items[i].hide()
-          add_score += 10
+    for (let item of this.items) {
+      if (item.is_show) {
+        if (bullets.hit_enemy(item)) {
+          item.damage++
+          item.$.style.color = '#dd3939'
+          if (item.damage > 5) {
+            item.hide()
+            add_score += 10
+          }
         }
       }
     }
@@ -94,9 +100,9 @@ class EnemyCollection {
 
   // 自機との当たり判定
   hit_player(player) {
-    for (let i = 0; i < this.MAX_ITEMS; i++) {
-      if (this.items[i].is_show) {
-        if (player.hit_enemy(this.items[i])) {
+    for (let item of this.items) {
+      if (item.is_show) {
+        if (player.hit_enemy(item)) {
           return true
         }
       }

@@ -1,6 +1,6 @@
 // キャラクタークラス
 class Character {
-  constructor(class_name, color) {
+  constructor(class_name, color, size) {
     this.id_name = `character${Character.character_no}`
     this._show = true
     this._x = 0
@@ -10,6 +10,8 @@ class Character {
     app.insertAdjacentHTML('beforeend', `<i id="${this.id_name}" class="fas ${class_name}"></i>`)
     this.$.style.position = 'absolute'
     this.$.style.color = color
+    this.$.style.textShadow ="2px 2px 2px black"
+    if (size) this.$.style.fontSize = size + 'px'
     this.hide()
   }
   get $() { return document.getElementById(this.id_name) }

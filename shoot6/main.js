@@ -1,6 +1,7 @@
 // メインクラス
 class App {
   constructor() {
+    this.background = new Background()
     this.player = new Player()
     this.enemies = new EnemyCollection()
     this.initTitle()
@@ -21,11 +22,13 @@ class App {
   // メイン画面の初期化
   initMain() {
     this.player.show()
+    this.background.init()
     this.score = 0
     this.level = 1
     this.timer = setInterval(() => {
       this.enemies.born(this.level)
       this.level++
+      this.background.scroll()
       this.player.move()
       this.enemies.move(this.player.x, this.player.y)
       this.score += this.enemies.hit_bullets(this.player.bullets)
@@ -34,6 +37,7 @@ class App {
         this.player.bullets.hide()
         this.player.hide()
         this.enemies.hide()
+        this.background.end()
         this.initOver()
       }
     }, 16)

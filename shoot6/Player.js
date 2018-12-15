@@ -1,7 +1,7 @@
 // 自機クラス
 class Player extends Character {
   constructor() {
-    super('fa-fighter-jet fa-3x', 'lightskyblue')
+  super('fa-dragon', '#ff7ea9', 50)
     this.mouse = new Mouse()
     this.bullets = new BulletCollection()
   }
