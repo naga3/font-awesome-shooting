@@ -3,13 +3,23 @@ class Mouse {
   constructor() {
     this.click = false
     const app = document.getElementById('app')
+    document.addEventListener('touchmove', e => {
+      e.preventDefault()
+      this.x = e.changedTouches[0].pageX
+      this.y = e.changedTouches[0].pageY
+    })
     app.addEventListener('mousemove', e => {
       this.x = e.clientX
       this.y = e.clientY
     })
-
-    // app外でもマウスの押下を取得するためにdocumentのイベントを取る。
-    document.addEventListener('mousedown', () => this.click = true)
+    document.addEventListener('touchstart', () => {
+      e.preventDefault()
+      this.click = true
+    })
+    document.addEventListener('touchend', () => {
+      this.click = false
+    })
+    app.addEventListener('mousedown', () => this.click = true)
     document.addEventListener('mouseup', () => this.click = false)
   }
 }
