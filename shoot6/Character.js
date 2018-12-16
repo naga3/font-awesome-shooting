@@ -9,7 +9,7 @@ class Character {
     const app = document.getElementById('app')
     app.insertAdjacentHTML('beforeend', `<i id="${this.id_name}" class="fas ${class_name}"></i>`)
     this.$.style.position = 'absolute'
-    this.$.style.color = color
+    this.$.style.color = color || 'white'
     this.$.style.textShadow ="2px 2px 2px black"
     if (size) this.$.style.fontSize = size + 'px'
     this.hide()

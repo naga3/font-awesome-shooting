@@ -1,7 +1,7 @@
 // 弾クラス
 class Bullet extends Character {
   constructor() {
-    super('fa-snowflake fa-2x fa-spin', 'white')
+    super('fa-snowflake fa-spin', 'white', 30)
   }
 
   // 発生
