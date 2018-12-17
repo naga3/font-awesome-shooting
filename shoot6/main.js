@@ -10,19 +10,20 @@ class App {
   // タイトル画面の初期化
   initTitle() {
     const title = document.getElementById('title')
+    const start = document.getElementById('start-button')
     title.style.display = 'block'
     const listener = () => {
-      title.removeEventListener('click', listener)
+      start.removeEventListener('click', listener)
       title.style.display = 'none'
       this.initMain()
     }
-    title.addEventListener('click', listener)
+    start.addEventListener('click', listener)
   }
 
   // メイン画面の初期化
   initMain() {
-    this.player.show()
     this.background.init()
+    this.player.init()
     this.score = 0
     this.level = 1
     this.timer = setInterval(() => {
@@ -34,8 +35,7 @@ class App {
       this.score += this.enemies.hit_bullets(this.player.bullets)
       if (this.enemies.hit_player(this.player)) {
         clearInterval(this.timer)
-        this.player.bullets.hide()
-        this.player.hide()
+        this.player.end()
         this.enemies.hide()
         this.background.end()
         this.initOver()
@@ -46,15 +46,16 @@ class App {
   // ゲームオーバー画面の初期化
   initOver() {
     const over = document.getElementById('over')
+    const retry = document.getElementById('retry-button')
     over.style.display = 'block'
     const score = document.getElementById('score-num')
     score.innerText = this.score
     const listener = () => {
-      over.removeEventListener('click', listener)
+      retry.removeEventListener('click', listener)
       over.style.display = 'none'
       this.initMain()
     }
-    over.addEventListener('click', listener)
+    retry.addEventListener('click', listener)
   }
 }
 

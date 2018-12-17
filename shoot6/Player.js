@@ -6,6 +6,19 @@ class Player extends Character {
     this.bullets = new BulletCollection()
   }
 
+  // 初期化
+  init() {
+    this.show()
+    this.mouse.init()
+  }
+
+  // 終了
+  end() {
+    this.mouse.end()
+    this.bullets.hide()
+    this.hide()
+  }
+
   // 移動
   move() {
     this.x = this.mouse.x
