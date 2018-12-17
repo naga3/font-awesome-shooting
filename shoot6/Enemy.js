@@ -123,11 +123,11 @@ class EnemyCollection {
   constructor() {
     this.items = []
     this.interval = 0
+    const enemy_classes = [
+      EnemyBird, EnemyHippo, EnemyDice, EnemyBird, EnemyBird
+    ]
     for (let i = 0; i < this.MAX_ITEMS; i++) {
-      const enemy_class = [
-        EnemyBird, EnemyBird, EnemyHippo, EnemyDice, EnemyDice
-      ][Math.floor(Math.random() * 5)]
-      const item = new enemy_class()
+      const item = new enemy_classes[i % enemy_classes.length]()
       this.items.push(item)
     }
   }
