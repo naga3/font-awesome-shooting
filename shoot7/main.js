@@ -22,6 +22,7 @@ class App {
 
   // メイン画面の初期化
   initMain() {
+    document.getElementById('ranking-form').style.display = 'none'
     this.background.init()
     this.player.init()
     this.score = 0
@@ -50,6 +51,7 @@ class App {
     over.style.display = 'block'
     const score = document.getElementById('score-num')
     score.innerText = this.score
+    document.getElementById('ranking-form').style.display = 'block'
     const listener = () => {
       retry.removeEventListener('click', listener)
       over.style.display = 'none'

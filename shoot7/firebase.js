@@ -15,13 +15,20 @@ collection = firestore.collection('score')
 
 collection.orderBy('score', 'desc').onSnapshot(t => {
   const table = document.getElementById('ranking-body')
+  table.innerHTML = ''
   t.forEach(r => {
     row = r.data()
     table.insertAdjacentHTML('beforeend', `<tr><td>${row.name}</td><td>${row.score}</td><td>${row.comment}</td></tr>`)
   })
 })
-// collection.add({
-// name: '山田太郎',
-// score: 54321
-// })
+
+document.getElementById('ranking-button').addEventListener('click', () => {
+  document.getElementById('ranking-form').style.display = 'none'
+  collection.add({
+    name: document.getElementById('ranking-name').value,
+    score: document.getElementById('score-num').innerText,
+    comment: document.getElementById('ranking-comment').value
+  })
+})
+
 
