@@ -26,9 +26,7 @@ document.getElementById('ranking-button').addEventListener('click', () => {
   document.getElementById('ranking-form').style.display = 'none'
   collection.add({
     name: document.getElementById('ranking-name').value,
-    score: document.getElementById('score-num').innerText,
+    score: parseInt(document.getElementById('score-num').innerText),
     comment: document.getElementById('ranking-comment').value
   })
 })
-
-
