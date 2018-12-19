@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Fredoka+One">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
+    <link rel="stylesheet" href="main.css">
+    <title>Font Awesome shooting game! - Scenes</title>
+  </head>
+  <body>
+    <div id="app">
+      <div id="title">
+          <div id="title-text">Font<br>Awesome<br>Shooting!</div>
+          <div id="start-button"><i class="fas fa-play-circle"></i></div>
+      </div>
+      <div id="over">
+          <div id="over-text">Game<br>Over!</div>
+          <div id='score-text'>Score <span id="score-num">0</span></div>
+          <div id="retry-button"><i class="fas fa-play-circle"></i></div>
+      </div>
+    </div>
+    <table id="ranking">
+      <thead>
+          <tr><th>name</th><th>score</th><th>comment</th></tr>
+      </thead>
+      <tbody id="ranking-body"></tbody>
+    </table>
+
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.7.0/firebase-firestore.js"></script>
+    <script src="firebase.js"></script>
+    <script src="Mouse.js"></script>
+    <script src="Character.js"></script>
+    <script src="Background.js"></script>
+    <script src="Bullet.js"></script>
+    <script src="Enemy.js"></script>
+    <script src="Player.js"></script>
+    <script src="main.js"></script>
+  </body>
+</html>
