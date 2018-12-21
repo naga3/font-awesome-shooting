@@ -118,13 +118,53 @@ class EnemyDice extends Character {
   }
 }
 
+// 敵クラス（氷柱）
+class EnemyIcicle extends Character {
+  constructor() {
+    super('fa-icicles', null, 100)
+    this.hide()
+  }
+
+  // 発生
+  born() {
+    if (this.is_show) return false
+    this.x = 800 + this.width / 2
+    this.y = this.height / 2
+    this.vy = 0
+    this.is_fall = false
+    this.damage = 0
+    this.$.style.color = '#88ffff'
+    this.show()
+    return true
+  }
+
+  // 移動
+  move(px, py) {
+    if (this.is_show) {
+      this.x -= 8
+      if (this.is_fall) {
+        this.vy++
+        this.y += this.vy
+        if (this.y > 400 + this.height / 2) {
+          this.hide()
+        }
+      } else {
+        if (this.x < px + 200) {
+          this.is_fall = true
+        }
+      }
+      if (this.x < -this.width / 2) this.hide()
+    }
+  }
+}
+
 // 敵コレクションクラス
 class EnemyCollection {
   constructor() {
     this.items = []
     this.interval = 0
     const enemy_classes = [
-      EnemyBird, EnemyHippo, EnemyDice, EnemyBird, EnemyBird
+      EnemyBird, EnemyHippo, EnemyIcicle, EnemyDice, EnemyBird, EnemyBird, EnemyIcicle
     ]
     for (let i = 0; i < this.MAX_ITEMS; i++) {
       const item = new enemy_classes[i % enemy_classes.length]()
