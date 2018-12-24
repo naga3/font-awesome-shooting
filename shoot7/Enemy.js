@@ -5,6 +5,8 @@ class EnemyBird extends Character {
     this.hide()
   }
 
+  get hp() { return 3 }
+
   // 発生
   born() {
     if (this.is_show) return false
@@ -40,6 +42,8 @@ class EnemyHippo extends Character {
     super('fa-hippo', null, 100)
     this.hide()
   }
+
+  get hp() { return 6 }
 
   // 発生
   born() {
@@ -89,6 +93,8 @@ class EnemyDice extends Character {
     this.hide()
   }
 
+  get hp() { return 6 }
+
   // 発生
   born() {
     if (this.is_show) return false
@@ -121,9 +127,11 @@ class EnemyDice extends Character {
 // 敵クラス（氷柱）
 class EnemyIcicle extends Character {
   constructor() {
-    super('fa-icicles', null, 100)
+    super('fa-icicles', null, 80)
     this.hide()
   }
+
+  get hp() { return 3 }
 
   // 発生
   born() {
@@ -133,7 +141,7 @@ class EnemyIcicle extends Character {
     this.vy = 0
     this.is_fall = false
     this.damage = 0
-    this.$.style.color = '#88ffff'
+    this.$.style.color = '#44ffff'
     this.show()
     return true
   }
@@ -143,17 +151,51 @@ class EnemyIcicle extends Character {
     if (this.is_show) {
       this.x -= 8
       if (this.is_fall) {
-        this.vy++
-        this.y += this.vy
+        this.vy += 0.3
+        this.y += Math.floor(this.vy)
         if (this.y > 400 + this.height / 2) {
           this.hide()
         }
       } else {
-        if (this.x < px + 200) {
+        if (this.x < px + 280 + Math.floor(Math.random() * 100)) {
           this.is_fall = true
         }
       }
       if (this.x < -this.width / 2) this.hide()
+    }
+  }
+}
+
+// 敵クラス（骨）
+class EnemyBone extends Character {
+  constructor() {
+    super('fa-bone fa-spin', null, 40)
+    this.hide()
+  }
+
+  get hp() { return 1 }
+
+  // 発生
+  born(px, py) {
+    if (this.is_show) return false
+    this.x = 800 - this.width / 2
+    this.y = Math.random() * 400
+    this.vx = (px - this.x) / 50
+    this.vy = (py - this.y) / 50
+    this.damage = 0
+    this.$.style.color = '#ffffaa'
+    this.show()
+    return true
+  }
+
+  // 移動
+  move() {
+    if (this.is_show) {
+      this.x += parseInt(this.vx)
+      this.y += parseInt(this.vy)
+      if (this.x < -this.width / 2
+        || this.y < -this.height / 2
+        || this.y > 400 + this.height / 2) this.hide()
     }
   }
 }
@@ -164,11 +206,14 @@ class EnemyCollection {
     this.items = []
     this.interval = 0
     const enemy_classes = [
-      EnemyBird, EnemyHippo, EnemyIcicle, EnemyDice, EnemyBird, EnemyBird, EnemyIcicle
+      EnemyBird, EnemyBird, EnemyBird, EnemyBird,
+      EnemyHippo, EnemyHippo,
+      EnemyDice, EnemyDice,
+      EnemyIcicle, EnemyIcicle,
+      EnemyBone, EnemyBone, EnemyBone
     ]
-    for (let i = 0; i < this.MAX_ITEMS; i++) {
-      const item = new enemy_classes[i % enemy_classes.length]()
-      this.items.push(item)
+    for (let enemy_class of enemy_classes) {
+      this.items.push(new enemy_class)
     }
   }
 
@@ -176,12 +221,13 @@ class EnemyCollection {
   get MAX_ITEMS() { return 20 }
 
   // 発生
-  born(level) {
+  born(level, px, py) {
     // ある程度のインターバルをおいて発生する。
     this.interval += Math.log(level) * 5
-    if (this.interval > 1000) {
-      for (let item of this.items) {
-        if (item.born()) break
+    if (this.interval > 800) {
+      for (let i = 0; i < 10; i++) {
+        const item = this.items[Math.floor(Math.random() * this.items.length)]
+        if (item.born(px, py)) break
       }
       this.interval = 0
     }
@@ -208,7 +254,7 @@ class EnemyCollection {
       if (item.is_show) {
         if (bullets.hit_enemy(item)) {
           item.damage++
-          if (item.damage > 5) {
+          if (item.damage >= item.hp) {
             item.hide()
             add_score += 10
           }

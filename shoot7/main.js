@@ -28,7 +28,7 @@ class App {
     this.score = 0
     this.level = 1
     this.timer = setInterval(() => {
-      this.enemies.born(this.level)
+      this.enemies.born(this.level, this.player.x, this.player.y)
       this.level++
       this.background.scroll()
       this.player.move()

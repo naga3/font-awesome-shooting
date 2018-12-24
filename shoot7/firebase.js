@@ -27,6 +27,9 @@ document.getElementById('ranking-button').addEventListener('click', () => {
   collection.add({
     name: document.getElementById('ranking-name').value,
     score: parseInt(document.getElementById('score-num').innerText),
-    comment: document.getElementById('ranking-comment').value
+    comment: document.getElementById('ranking-comment').value,
+    version: 1.1
+  }).catch(() => {
+    alert('古いバージョンかもしれません。リロードしてください。')
   })
 })
