@@ -78,7 +78,7 @@ class EnemyHippo extends Character {
       } else {
         if (Math.random() < 0.01) {
           this.is_jump = true
-          this.vy = -22
+          this.vy = -25
         }
       }
       if (this.x < -this.width / 2) this.hide()
